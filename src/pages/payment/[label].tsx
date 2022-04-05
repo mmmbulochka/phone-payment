@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
+import * as React from "react";
+import {MaskedInput} from 'baseui/input';
+import {FormControl} from 'baseui/form-control';
+import { Button } from "baseui/button";
 
-const LabelS = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 30px;
-`
+// const LabelS = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   margin: 30px;
+// `
 
 const Div = styled.div`
   display: flex;
@@ -13,9 +17,9 @@ const Div = styled.div`
   justify-content: center;
   border-color: black;
   border-width: 2px;
-  gap: 10px;
+  gap: 30px;
   margin-top: 20px;
-  width: 300px;
+
     `;
 
 const PhoneForm = styled.input`
@@ -27,17 +31,17 @@ const PhoneForm = styled.input`
 function Label() {
     const router = useRouter()
     const { label } = router.query
+    const [number, setNumber] = React.useState("");
 
-    return <LabelS>
-        <Div>
+    return <Div>
             Payment: {label}
-
-        <PhoneForm type={"number"} size={50}/>
-            <PhoneForm type={"number"} size={50}/>
-
-        <input type={"number"} size={50}/>
+          <MaskedInput startEnhancer="+7" placeholder="Phone number" mask="(999) 999-9999" />
+            <FormControl caption={'1-1000'}>
+                <MaskedInput value={number} onChange={(e) => setNumber(e.target.value)} placeholder="Total" mask="9999" error={number > 1000}/>
+            </FormControl>
+          <Button>Pay</Button>
     </Div>
-    </LabelS>
+
 }
 
 export default Label

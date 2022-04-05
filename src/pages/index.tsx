@@ -2,37 +2,42 @@ import type { NextPage } from 'next'
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import styled from 'styled-components'
-import Button from "../components/button";
-import Modal from "../components/modal";
+import Buttons from "../components/button";
+import ModalAdd from "../components/modal";
+import { Plus } from "baseui/icon";
 
-const HomeS = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 30px;
-`
+// const HomeS = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   margin: 30px;
+// `
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   border-color: black;
   border-width: 2px;
-  gap: 10px;
+  gap: 30px;
   margin-top: 20px;
 `
-const Plus = styled.div`
+const PlusS = styled.div`
   display: flex;
   justify-content: center;
 `
 const ButtonPlus = styled.button`
   border: none;
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   cursor: pointer;
 `
-const Image = styled.img`
-  width: 40px;
-  display: block;
-  justify-content: center;
+// const Image = styled.img`
+//   width: 40px;
+//   display: block;
+//   justify-content: center;
+// `
+const A = styled.a`
+  display: flex;
+  flex-direction: column;
 `
 
 
@@ -43,32 +48,30 @@ const Home: NextPage = (props) => {
   const handleClose = () => setOpen(false);
 
 
-  return <HomeS>
-  <div>
-    <h2>
+  return <div>
+    <div>
       Выберите оператор
-    </h2>
+    </div>
     <Content>
       {list.map((element) => {
         return <Link href={`/payment/${element}`.toLowerCase()} key={element}>
-            <Button
+            <A><Buttons
                 label={element}
-            ></Button>
+            ></Buttons></A>
         </Link>
       })}
     </Content>
-    <Plus>
+    <PlusS>
         <ButtonPlus onClick={handleOpen}>
-            <Image src={'plus.png'}/>
+            <Plus size={64}/>
         </ButtonPlus>
-    </Plus>
+    </PlusS>
 
-    <Modal open={open} handleAdd={(name: string) => {
+    <ModalAdd open={open} handleAdd={(name: string) => {
       setList([...list, name])
     }} onClose={handleClose}/>
     
   </div>
-  </HomeS>
 
 }
 

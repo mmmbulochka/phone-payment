@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import {useEffect, useRef, useState} from "react";
-
+import { Input } from "baseui/input";
+import { Button } from "baseui/button";
 
 const Dialog = styled.div`
-  padding: 70px;
-  flex-direction: column;
+  padding: 50px;
   background-color: white;
+`
+
+const InputS = styled.div`
+    display: flex;
+    margin-top: 30px;
 `
 
 const ModalS = styled.div`
@@ -24,6 +29,22 @@ const ModalS = styled.div`
 function Modal(props) {
     const [name, setName] = useState('')
     const dialogRef = useRef(null)
+    useEffect(() => {
+        const listener = (e) => {
+            if (e.key === 'Enter'){
+                if(!name) {
+                    return
+                }
+                props.handleAdd(name)
+                props.onClose()
+            }
+        }
+        document.addEventListener('keydown', listener)
+        return () => {
+            document.removeEventListener('keydown',listener)
+
+        }
+    }, [name])
     useEffect(() => {
         const listener = (e) => {
             if (e.key === 'Escape'){
@@ -46,17 +67,25 @@ function Modal(props) {
         props.onClose()
     }
     }>
+
     <Dialog ref={dialogRef}>
         <div>
-        Add one more
+            Add one more
         </div>
-        <input type={'text'} value={name} onChange={(event) => setName(event.target.value)}/>
-        <button onClick={ () => {
+        <InputS>
+        <Input autoFocus type={'text'} value={name} onChange={(event) => setName(event.target.value)}/>
+        <Button
+          onClick={ () => {
+            if(!name) {
+                return
+            }
             props.handleAdd(name)
             props.onClose()
-        }}>
+        }}
+        >
             Add
-        </button>
+        </Button>
+        </InputS>
     </Dialog>
     </ModalS>
 }
