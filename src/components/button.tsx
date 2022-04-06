@@ -1,7 +1,6 @@
-import styled from "styled-components";
-import * as React from "react";
-import {Button} from "baseui/button";
-
+import styled from 'styled-components';
+import * as React from 'react';
+import {Button} from 'baseui/button';
 
 const StyledButton = styled.button`
   padding: 14px 16px;
@@ -11,11 +10,10 @@ const StyledButton = styled.button`
   border: none;
   font-weight: 700;
   cursor: pointer;
-`
-
+`;
 
 function Buttons(props) {
-    return <Button onClick={props.onClick}> {props.label} </Button>
+  return <Button onClick={props.onClick}> {props.label} </Button>;
 }
 
-export default Buttons
+export default Buttons;
