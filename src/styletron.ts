@@ -7,5 +7,6 @@ export const styletron =
   typeof window === 'undefined'
     ? new Server()
     : new Client({
+        // @ts-ignore
         hydrate: getHydrateClass(),
       });
