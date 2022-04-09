@@ -21,7 +21,7 @@ const Inner = styled.div`
   width: 100%;
 `;
 
-function MyApp({Component, pageProps}: AppProps) {
+function MyApp({Component, pageProps}: AppProps): JSX.Element {
   return (
     <StyletronProvider value={styletron}>
       <BaseProvider theme={LightTheme}>
