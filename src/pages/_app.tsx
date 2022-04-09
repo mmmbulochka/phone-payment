@@ -28,7 +28,8 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
         <ThemeProvider theme={theme}>
           <AppS>
             <Inner>
-              <Component {...pageProps} />
+              <div>hello</div>
+              {/*<Component {...pageProps} />*/}
             </Inner>
           </AppS>
         </ThemeProvider>
