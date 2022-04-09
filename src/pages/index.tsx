@@ -1,18 +1,13 @@
 import type {NextPage} from 'next';
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
-import Buttons from '../components/button';
+import Button from '../components/button';
 import Modal from '../components/modal';
 import {Plus} from 'baseui/icon';
 import {Input} from 'baseui/input';
-import {Button} from 'baseui/button';
+import {Button as BaseuiButton} from 'baseui/button';
 
-// const HomeS = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   margin: 30px;
-// `
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,12 +31,9 @@ const ButtonPlus = styled.button`
   padding: 20px;
   cursor: pointer;
 `;
-// const Image = styled.img`
-//   width: 40px;
-//   display: block;
-//   justify-content: center;
-// `
-const A = styled.a`
+
+// todo
+const ButtonLink = styled.a`
   display: flex;
   flex-direction: column;
 `;
@@ -49,7 +41,7 @@ const A = styled.a`
 const Home: NextPage = (props) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
-  const [list, setList] = useState(['Beeline', 'MTS', 'Megafon']);
+  const [operators, setOperators] = useState(['MTS', 'Beeline', 'Megafon']);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -57,12 +49,12 @@ const Home: NextPage = (props) => {
     <div>
       <div>Выберите оператор</div>
       <Content>
-        {list.map((element) => {
+        {operators.map((operator: any) => {
           return (
-            <Link href={`/payment/${element}`.toLowerCase()} key={element}>
-              <A>
-                <Buttons label={element} />
-              </A>
+            <Link href={`/payment/${operator}`.toLowerCase()} key={operator}>
+              <ButtonLink>
+                <Button label={operator} />
+              </ButtonLink>
             </Link>
           );
         })}
@@ -82,30 +74,29 @@ const Home: NextPage = (props) => {
                 autoFocus
                 type={'text'}
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event: any) => setName(event.target.value)}
               />
-              <Button
+              <BaseuiButton
                 onClick={() => {
                   if (!name) {
                     return;
                   }
-                  setList([...list, name]);
+                  setOperators([...operators, name]);
                   setName('');
                   handleClose();
                 }}
               >
                 Add
-              </Button>
+              </BaseuiButton>
             </InputS>
           </div>
         }
         open={open}
         handleAdd={() => {
-          console.log('handleAdd', name);
           if (!name) {
             return;
           }
-          setList([...list, name]);
+          setOperators([...operators, name]);
           setName('');
           handleClose();
         }}

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 
 const Dialog = styled.div`
   position: relative;
@@ -19,10 +19,17 @@ const ModalS = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
-function Modal(props) {
+type Props = {
+  handleAdd?: any;
+  open: boolean;
+  content: any;
+  onClose: any;
+};
+
+function Modal(props: Props) {
   const dialogRef = useRef(null);
   useEffect(() => {
-    const listener = (e) => {
+    const listener = (e: any) => {
       console.log('listener');
       if (e.key === 'Enter') {
         props.handleAdd?.();
@@ -34,7 +41,7 @@ function Modal(props) {
     };
   }, [props.handleAdd]);
   useEffect(() => {
-    const listener = (e) => {
+    const listener = (e: any) => {
       if (e.key === 'Escape') {
         props.onClose();
       }
@@ -44,13 +51,13 @@ function Modal(props) {
       document.removeEventListener('keydown', listener);
     };
   }, []);
-  if (props.open !== true) {
+  if (!props.open) {
     return null;
   }
   return (
     <ModalS
       onClick={(e) => {
-        if (dialogRef.current.contains(e.target)) {
+        if ((dialogRef.current as any).contains(e.target)) {
           return;
         }
         props.onClose();

@@ -1,19 +1,13 @@
-import styled from 'styled-components';
 import * as React from 'react';
-import {Button} from 'baseui/button';
+import {Button as BaseuiButton} from 'baseui/button';
 
-const StyledButton = styled.button`
-  padding: 14px 16px;
-  color: white;
-  background-color: black;
-  border-radius: 0;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-`;
+type Props = {
+  onClick?: any;
+  label: string;
+};
 
-function Buttons(props) {
-  return <Button onClick={props.onClick}> {props.label} </Button>;
+function Button(props: Props) {
+  return <BaseuiButton onClick={props.onClick}>{props.label}</BaseuiButton>;
 }
 
-export default Buttons;
+export default Button;
